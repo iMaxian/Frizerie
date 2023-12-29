@@ -1,0 +1,49 @@
+﻿@page
+@model Frizerie.Pages.Servicii.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Serviciu</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Serviciu.Tip_Serviciu)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Serviciu.Tip_Serviciu)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Serviciu.Barber)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Serviciu.Barber.ID)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Serviciu.Cost)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Serviciu.Cost)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Serviciu.Data_Programare)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Serviciu.Data_Programare)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Serviciu.BarberShop)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Serviciu.BarberShop.ID)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Serviciu?.ID">Edit</a> |
+    <a asp-page="./Index">Back to List</a>
+</div>
