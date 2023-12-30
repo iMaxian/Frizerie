@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Frizerie.Data;
 using Frizerie.Models;
 
-namespace Frizerie.Pages.Servicii
+namespace Frizerie.Pages.Barbers
 {
     public class IndexModel : PageModel
     {
@@ -19,16 +19,13 @@ namespace Frizerie.Pages.Servicii
             _context = context;
         }
 
-        public IList<Serviciu> Serviciu { get;set; } = default!;
+        public IList<Barber> Barber { get;set; } = default!;
 
         public async Task OnGetAsync()
         {
-            if (_context.Serviciu != null)
+            if (_context.Barber != null)
             {
-                Serviciu = await _context.Serviciu
-                .Include(s => s.Barber)
-                .Include(s => s.BarberShop)
-                .ToListAsync();
+                Barber = await _context.Barber.ToListAsync();
             }
         }
     }

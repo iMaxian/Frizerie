@@ -15,5 +15,9 @@ namespace Frizerie.Data
         }
 
         public DbSet<Frizerie.Models.Serviciu> Serviciu { get; set; } = default!;
+
+        public DbSet<Frizerie.Models.Barber>? Barber { get; set; }
+
+        //public DbSet<Frizerie.Models.Categorie>? Categorie { get; set; }
     }
 }
