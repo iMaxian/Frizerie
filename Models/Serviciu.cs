@@ -32,7 +32,7 @@ namespace Frizerie.Models
         public int? BarberShopID { get; set; }
         public BarberShop? BarberShop { get; set; }
 
-        //public ICollection<CategorieServiciu> CategorieServicii { get; set; }
+        public ICollection<ServiciuCategory>? ServiciuCategories { get; set; }
 
     }
 }

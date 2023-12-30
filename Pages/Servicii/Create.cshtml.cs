@@ -10,7 +10,7 @@ using Frizerie.Models;
 
 namespace Frizerie.Pages.Servicii
 {
-    public class CreateModel : PageModel
+    public class CreateModel : ServiciuCategoriesPageModel
     {
         private readonly Frizerie.Data.FrizerieContext _context;
 
@@ -21,15 +21,47 @@ namespace Frizerie.Pages.Servicii
 
         public IActionResult OnGet()
         {
-        ViewData["BarberID"] = new SelectList(_context.Set<Barber>(), "ID", "ID");
-        ViewData["BarberShopID"] = new SelectList(_context.Set<BarberShop>(), "ID", "ID");
+            var barberList = _context.Barber.Select(x => new
+            {
+                x.ID,
+                NumeComplet = x.Nume + " " + x.Prenume
+            });
+
+        ViewData["BarberID"] = new SelectList(_context.Set<Barber>(), "ID", "NumeComplet");
+        ViewData["BarberShopID"] = new SelectList(_context.Set<BarberShop>(), "ID", "NumeComplet");
+
+            var serviciu = new Serviciu();
+            serviciu.ServiciuCategories = new List<ServiciuCategory>();
+            PopulateAssignedCategoryData(_context, serviciu);
+
             return Page();
         }
 
         [BindProperty]
         public Serviciu Serviciu { get; set; } = default!;
-        
 
+        public async Task<IActionResult> OnPostAsync(string[] selectedCategories)
+        {
+            var newServiciu = new Serviciu();
+            if (selectedCategories != null)
+            {
+                newServiciu.ServiciuCategories = new List<ServiciuCategory>();
+                foreach (var cat in selectedCategories)
+                {
+                    var catToAdd = new ServiciuCategory
+                    {
+                        CategoryID = int.Parse(cat)
+                    };
+                    newServiciu.ServiciuCategories.Add(catToAdd);
+                }
+            }
+            Serviciu.ServiciuCategories = newServiciu.ServiciuCategories;
+            _context.Serviciu.Add(Serviciu);
+            await _context.SaveChangesAsync();
+            return RedirectToPage("./Index");
+        }
+
+        /*
         // To protect from overposting attacks, see https://aka.ms/RazorPagesCRUD
         public async Task<IActionResult> OnPostAsync()
         {
@@ -42,6 +74,7 @@ namespace Frizerie.Pages.Servicii
             await _context.SaveChangesAsync();
 
             return RedirectToPage("./Index");
-        }
+        */
     }
+    
 }

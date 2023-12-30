@@ -18,6 +18,8 @@ namespace Frizerie.Data
 
         public DbSet<Frizerie.Models.Barber>? Barber { get; set; }
 
+        public DbSet<Frizerie.Models.Category>? Category { get; set; }
+
         //public DbSet<Frizerie.Models.Categorie>? Categorie { get; set; }
     }
 }
