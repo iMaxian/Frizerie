@@ -28,12 +28,21 @@
             <th>
                 @Html.DisplayNameFor(model => model.Serviciu[0].BarberShop)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Serviciu[0].ServiciuCategories)
+            </th>
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model.Serviciu) {
-        <tr>
+@foreach (var item in Model.ServiciuD.Servicii) {
+    string selectedRow = "";
+        if (item.ID == Model.ServiciuID)
+        {
+            selectedRow = "table-success";
+        }
+
+        <tr class="@selectedRow">
             <td>
                 @Html.DisplayFor(modelItem => item.Tip_Serviciu)
             </td>
@@ -49,6 +58,14 @@
             <td>
                 @Html.DisplayFor(modelItem => item.BarberShop.ID)
             </td>
+                <td>
+                    @{
+                        foreach (var category in item.ServiciuCategories)
+                        {
+                            @category.Category.ID @: @category.Category.CategoryName <br />
+                        }
+                    }
+                </td>
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.ID">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.ID">Details</a> |
